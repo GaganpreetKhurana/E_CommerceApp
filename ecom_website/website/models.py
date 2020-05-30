@@ -20,6 +20,7 @@ class Service(models.Model):
 
 class Provider(models.Model):
     available=models.BooleanField(choices=[(True,'Available'),(False,'Busy')],verbose_name="Available")
+    provider=models.ForeignKey(UserDetail,on_delete=models.DO_NOTHING,verbose_name="Service Provider",default=None)
 
 class ServiceDetail(models.Model):
     provider=models.ForeignKey(Provider,on_delete=models.DO_NOTHING,verbose_name="Service Provider")
