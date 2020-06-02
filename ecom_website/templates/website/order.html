@@ -1,0 +1,30 @@
+{% extends 'website/base.html' %}
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<h3>Services In Database</h3>
+{% for item in items %}
+<p>{{item.description}}</p>
+{% endfor %}
+<h3>Place Order</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="inputBox">
+        {{ field }}
+        <label>{{ field.label }}</label>
+    </div>
+    {% endfor %}
+    <div style="text-align: center;">
+        <button type="submit">Register</button>
+    </div>
+</form>
+
+<br>
+<form>
+    <div style="text-align: center;">
+        <button type="submit" formaction="{% url 'website:login' %}">Back to Login</button>
+    </div>
+</form>
+</div>
+{% endblock %}

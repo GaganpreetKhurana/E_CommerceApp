@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
-from .forms import CreateAccountForm,LoginForm,AddServiceDetail
+from .models import Service
+from .forms import CreateAccountForm,LoginForm,AddServiceDetail,PlaceOrder
 
 class CreateAccountFormView(View):
     '''
@@ -91,4 +92,25 @@ class AddServiceFormView(View):
             service = form.cleaned_data['service']
             form.save()
         return render(request, self.template_name, {'form': form})
-            
+
+
+class PlaceOrder(View):
+    form_class = PlaceOrder
+    template_name = 'website/order.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        items = Service.objects.all()
+        print(items)
+        args = {'items':items,'form': form}
+        return render(request, self.template_name, args)
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            provider = form.cleaned_data['provider']
+            customer = form.cleaned_data['customer']
+            detail = form.cleaned_data['detail']
+            active = form.cleaned_data['active']
+            form.save()
+        return render(request, self.template_name, {'form': form})
