@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import View
 
+from .models import Service
 from .forms import CreateAccountForm,LoginForm,AddServiceDetail,PlaceOrder
 
 class CreateAccountFormView(View):
@@ -99,12 +100,17 @@ class PlaceOrder(View):
 
     def get(self, request):
         form = self.form_class(None)
-        return render(request, self.template_name, {'form': form})
+        items = Service.objects.all()
+        print(items)
+        args = {'items':items,'form': form}
+        return render(request, self.template_name, args)
 
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
-            service = form.cleaned_data['service']
-            Place_Order = form.cleaned_data['active']
+            provider = form.cleaned_data['provider']
+            customer = form.cleaned_data['customer']
+            detail = form.cleaned_data['detail']
+            active = form.cleaned_data['active']
             form.save()
         return render(request, self.template_name, {'form': form})

@@ -37,11 +37,8 @@ class AddServiceDetail(forms.ModelForm):
 
 
 class PlaceOrder(forms.ModelForm):
-    '''
-    Form for Placing an Order
-    '''
     Place_Order = forms.BooleanField()
     class Meta:
         model = Order
-        fields = ['provider', 'active']
-        required = ['provider', 'active']
+        fields = ['provider','customer','detail']
+        required = ['provider', 'customer', 'detail']
