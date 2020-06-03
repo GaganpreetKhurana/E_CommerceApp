@@ -2,9 +2,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
-from .models import Service
-from .forms import CreateAccountForm,LoginForm,AddServiceDetail,PlaceOrder
+from .models import Service,UserDetail,Provider,ServiceDetail,Order
+from .forms import CreateAccountForm,LoginForm,AddServiceDetail,PlaceOrder,CreateUser
 
 class CreateAccountFormView(View):
     '''
@@ -32,8 +34,14 @@ class CreateAccountFormView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    profile = request.user
+                    provider=get_object_or_404(UserDetail, account=request.user)    
+                    if not provider.customer:
+                        provider=get_object_or_404(Provider,provider=provider)
+                        provider.available=True
+                        provider.save()
                     print("login")
-                    return redirect('website:login')
+                    return redirect('website:addUserDetails')
         return render(request, self.template_name, {'form': form})
 
 
@@ -58,8 +66,14 @@ class LoginFormView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    profile = request.user
+                    provider=get_object_or_404(UserDetail, account=request.user)    
+                    if not provider.customer:
+                        provider=get_object_or_404(Provider,provider=provider)
+                        provider.available=True
+                        provider.save()
                     print("Login")
-                    return redirect('website:login')
+                    return redirect('website:addService')
         return redirect('website:login')
 
 
@@ -70,6 +84,12 @@ def logout_view(request):
     :param request: request object
     :return: redirects to login
     '''
+    profile = request.user
+    provider=get_object_or_404(UserDetail, account=request.user)    
+    if not provider.customer:
+        provider=get_object_or_404(Provider,provider=provider)
+        provider.available=False
+        provider.save()
     logout(request)
     print("logout")
     return redirect('website:login')
@@ -88,9 +108,12 @@ class AddServiceFormView(View):
     def post(self,request):
         form = self.form_class(request.POST)
         if form.is_valid():
-            price = form.cleaned_data['price']
-            service = form.cleaned_data['service']
-            form.save()
+            obj = form.save(commit=False)
+            provider=get_object_or_404(UserDetail, account=request.user)
+            provider=get_object_or_404(Provider,provider=provider)
+            obj.provider=provider
+            obj.save()
+            form=self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
 
@@ -114,3 +137,28 @@ class PlaceOrder(View):
             active = form.cleaned_data['active']
             form.save()
         return render(request, self.template_name, {'form': form})
+
+def addUserDetailsFormView(request):
+    '''
+    View For Adding details
+    '''
+    form_class = CreateUser
+    template_name = 'website/login.html'
+
+    if request.GET:
+        form = form_class(None)
+        args = {'form': form}
+        return render(request, template_name, args)
+    else:
+        form = form_class(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            customer = form.cleaned_data['customer']
+            profile = request.user
+            obj.account=request.user
+            obj.email=profile.email
+            form.save()
+            if not customer:
+                provider=Provider(available=True,provider=obj)
+            form=form_class(None)
+        return render(request, template_name, {'form': form})
