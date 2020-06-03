@@ -8,6 +8,7 @@ list of patterns for url for redirection
 '''
 urlpatterns = [
     url(r'^createAccount', views.CreateAccountFormView.as_view(), name='createAccount'),
+    url(r'^addUserDetails', views.addUserDetailsFormView, name='addUserDetails'),
     url(r'^logout', views.logout_view, name='logout'),
     url(r'^addService', views.AddServiceFormView.as_view(), name='addService'),
     url(r'^PlaceOrder', views.PlaceOrder.as_view(), name='PlaceOrder'),

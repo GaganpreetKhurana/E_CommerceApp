@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import ServiceDetail
+from .models import ServiceDetail,UserDetail
 from .models import Order
 
 
@@ -42,3 +42,10 @@ class PlaceOrder(forms.ModelForm):
         model = Order
         fields = ['provider','customer','detail']
         required = ['provider', 'customer', 'detail']
+
+class CreateUser(forms.ModelForm):
+
+    class Meta:
+        model=UserDetail
+        fields=['name','phoneNumber','city','pincode','customer']
+        required=['name','phoneNumber','city','pincode','customer']
