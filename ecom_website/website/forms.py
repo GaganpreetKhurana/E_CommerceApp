@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from .models import ServiceDetail,UserDetail
 from .models import Order
@@ -37,14 +38,11 @@ class AddServiceDetail(forms.ModelForm):
 
 
 class PlaceOrder(forms.ModelForm):
-    Place_Order = forms.BooleanField()
     class Meta:
         model = Order
-        fields = ['provider','customer','detail']
-        required = ['provider', 'customer', 'detail']
+        fields = ['detail','provider']
 
 class CreateUser(forms.ModelForm):
-
     class Meta:
         model=UserDetail
         fields=['name','phoneNumber','city','pincode','customer']

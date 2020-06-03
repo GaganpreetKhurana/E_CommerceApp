@@ -123,18 +123,19 @@ class PlaceOrder(View):
 
     def get(self, request):
         form = self.form_class(None)
-        items = Service.objects.all()
-        print(items)
+        items = ServiceDetail.objects.all()
+        #print(items)
         args = {'items':items,'form': form}
         return render(request, self.template_name, args)
 
     def post(self, request):
+        print(request.POST)
         form = self.form_class(request.POST)
         if form.is_valid():
-            provider = form.cleaned_data['provider']
-            customer = form.cleaned_data['customer']
-            detail = form.cleaned_data['detail']
-            active = form.cleaned_data['active']
+            obj = form.save(commit=False)
+            profile = request.user
+            obj.customer = profile.customer
+            obj.active = True
             form.save()
         return render(request, self.template_name, {'form': form})
 
