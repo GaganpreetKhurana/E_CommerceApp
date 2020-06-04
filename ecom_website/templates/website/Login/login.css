@@ -1,0 +1,62 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    height: 100vh;
+    width: 100%;
+    background-image: url(https://images.pexels.com/photos/403575/pexels-photo-403575.jpeg?cs=srgb&dl=bloom-blossom-botanical-cactus-403575.jpg&fm=jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    border: black;
+}
+
+.login-form{
+    text-align: center;
+    border: black;
+    border-width: 3px;
+}
+
+.login-form h2{
+    font-size: 3rem;
+    margin: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:#3f3f44;
+}
+
+.login-form img{
+    width: 10rem;
+    height: 10rem;
+}
+
+.login-form input{
+    width: 90%;
+    padding: 1rem;
+    border: none;
+    border-bottom: 1.2px solid black;
+    margin: 20px auto;
+    font: #3f3f44;
+    font-size:1.3rem;
+    background: transparent;
+}
+
+.login-form button{
+    padding: 1.2rem 2.4rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    background-color: #3f3f44;
+    color: white;
+    font-weight: 500;
+    transition: 2s;
+}
+
+button:hover{
+    transform: scale(1.2);
+}

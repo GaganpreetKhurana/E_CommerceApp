@@ -1,0 +1,106 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.form{
+    margin: 0px 0px;
+    padding: 0px 0px;
+    display: flex;  
+    height: 100vh;
+    user-select: none;
+}
+
+.column{
+    flex: 65%;  
+    height: 100%;
+    margin-top: 10vh;
+}
+
+.background{
+    flex:50%;
+    padding: 0px 0px;
+    margin: 0px 0px;
+    height: 100%;
+    background-color: black;
+    color: white;
+}
+
+.create{
+    padding: 15vh 15vh;
+    padding-bottom: 1px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 9vh;
+}
+
+.already{
+    padding: 1px;
+    padding-left: 15vh;
+    font-family: 'Dosis', sans-serif;
+}
+
+.already a{
+    color: orange;
+}
+
+.form-group{
+   
+    padding-left: 20vh;
+    padding-right: 20vh;
+    white-space: nowrap;
+}
+
+
+
+.column{
+    text-align: center;
+    border: black;
+    border-width: 3px;
+}
+
+.column img{
+    width: 10rem;
+    height: 10rem;
+}
+
+.column h2{
+    font-size: 3rem;
+    margin: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:#3f3f44;
+}
+
+.column input{
+    width: 90%;
+    padding: 1rem;
+    border: none;
+    border-bottom: 1.2px solid black;
+    margin: 20px auto;
+    font: #3f3f44;
+    font-size:1.2rem;
+    background: transparent;
+}
+
+.column button{
+    margin-top: 10px;
+    margin-right: 0px;
+    padding: 1.2rem 2.4rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 4px;
+    background-color: orange;
+    color: white;
+    font-weight: 500;
+    transition: 2s;
+}
+
+button:hover{
+    transform: scale(1.2);
+}
+
+@media (max-width: 1000px)
+{
+    .form{
+        flex-wrap: wrap;
+    }
+}
