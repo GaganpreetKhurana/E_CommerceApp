@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
 # Create your models here.
+
 class UserDetail(models.Model):
     account=models.OneToOneField(User,on_delete=models.DO_NOTHING,verbose_name="User")
     name=models.CharField(max_length=50,verbose_name="Full Name")
@@ -22,27 +23,28 @@ class Service(models.Model):
     category=models.IntegerField(choices=categories,verbose_name="Category")
     description=models.TextField(help_text="Write a little bit about the service",verbose_name="Description")
     def __str__(self):
-        return str(self.category)+ '___' +self.description
+        return categories[self.category][1]+ '___' +self.description
 
 class Provider(models.Model):
     available=models.BooleanField(choices=[(True,'Available'),(False,'Busy')],verbose_name="Available")
     provider=models.ForeignKey(UserDetail,on_delete=models.DO_NOTHING,verbose_name="Service Provider",default=None)
 
     def __str__(self):
-        return str(self.available)+'___'+str(self.provider)
+        return str(self.available)+'___'+self.provider.name
 
 class ServiceDetail(models.Model):
     provider=models.ForeignKey(Provider,on_delete=models.DO_NOTHING,verbose_name="Service Provider")
     price=models.IntegerField(verbose_name="Price")
     service=models.OneToOneField(Service,verbose_name="Service",on_delete=models.DO_NOTHING)
+    
     def __str__(self):
-        return str(self.provider)+ '___' +str(self.price)+'___' +str(self.service)
+        return str(self.provider.provider.name)+ '___' +str(self.price)+'___' +str(self.service.description)
 
 class Order(models.Model):
     detail=models.OneToOneField(ServiceDetail,on_delete=models.DO_NOTHING,verbose_name="Service Provided")
     time=models.DateTimeField(auto_now=True,verbose_name="Order Placed At")
-    active=models.BooleanField(choices=[(True,'Yes'),(False,'No')],default=True,verbose_name="Service Completed")
+    active=models.BooleanField(choices=[(True,'Yes'),(False,'No')],default=True,verbose_name="Service Not Completed")
     customer=models.ForeignKey(UserDetail,on_delete=models.DO_NOTHING,verbose_name="Customer")
-    provider=models.ForeignKey(Provider,on_delete=models.DO_NOTHING,verbose_name="Service Provider")
+    
     def __str__(self):
-        return str(self.detail)+ '___' +str(self.time)+'___' +str(self.active)+'___' +str(self.customer)+'___'+str(self.provider)
+        return str(self.detail)+ '___' +str(self.time)+'___' +str(self.active)+'___' +self.customer.name +'__-'+ self.detail.provider.provider.name

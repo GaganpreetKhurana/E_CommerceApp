@@ -40,8 +40,10 @@ class CreateAccountFormView(View):
                         provider=get_object_or_404(Provider,provider=provider)
                         provider.available=True
                         provider.save()
+                        print("login")
+                        return redirect('website:addUserDetails')
                     print("login")
-                    return redirect('website:addUserDetails')
+                    return redirect('website:PlaceOrder')
         return render(request, self.template_name, {'form': form})
 
 
@@ -72,8 +74,10 @@ class LoginFormView(View):
                         provider=get_object_or_404(Provider,provider=provider)
                         provider.available=True
                         provider.save()
-                    print("Login")
-                    return redirect('website:addService')
+                        print("login")
+                        return redirect('website:addUserDetails')
+                    print("login")
+                    return redirect('website:PlaceOrder')
         return redirect('website:login')
 
 
@@ -124,21 +128,20 @@ class PlaceOrder(View):
     def get(self, request):
         form = self.form_class(None)
         items = ServiceDetail.objects.all()
-        #print(items)
         args = {'items':items,'form': form}
         return render(request, self.template_name, args)
 
     def post(self, request):
-        print(request.POST)
         form = self.form_class(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
-            profile = request.user
-            obj.customer = profile.customer
+            customer=get_object_or_404(UserDetail, account=request.user)
+            obj.customer = customer
             obj.active = True
             form.save()
         return render(request, self.template_name, {'form': form})
 
+@login_required(login_url='')
 def addUserDetailsFormView(request):
     '''
     View For Adding details

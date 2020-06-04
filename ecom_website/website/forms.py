@@ -40,7 +40,7 @@ class AddServiceDetail(forms.ModelForm):
 class PlaceOrder(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['detail','provider']
+        fields = ['detail']
 
 class CreateUser(forms.ModelForm):
     class Meta:
