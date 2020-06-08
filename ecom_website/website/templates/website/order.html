@@ -5,14 +5,14 @@
 <br>
 <br>
 <h3>Services In Database</h3>
-<pre><h4>Provider||Service||Price </h2></pre>
+<pre><h4>Provider||Service||Price </h4></pre>
 {% for item in items %}
-<p>{{item.provider.provider.name}} || {{item.service.description}}   ||  {{item.price}}</p>
+<p>{{item.provider.provider.name}} || {{item.service.description}} || {{item.price}}</p>
 {% endfor %}
 <br>
 <br>
 <h3>Place Order</h3>
-<form action="" method="post">
+<form action="" method="post" class="form">
     {% csrf_token %}
     {% for field in form %}
     <div class="inputBox">
@@ -20,7 +20,7 @@
         <label>{{ field.label }}</label>
     </div>
     {% endfor %}
-    <input type="submit">
+    <input type="submit" class="button">
 </form>
 <br>
 </div>

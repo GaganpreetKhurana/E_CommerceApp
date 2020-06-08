@@ -1,0 +1,73 @@
+body{
+    height: 100vh;
+    width: 100%;
+    background-image: url(https://images.pexels.com/photos/403575/pexels-photo-403575.jpeg?cs=srgb&dl=bloom-blossom-botanical-cactus-403575.jpg&fm=jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    border: black;
+    font-size: 2rem;
+}
+
+.form{
+    margin-left: 33%;
+    margin-right: 33%;
+    margin-top: 15rem;
+}
+
+input{
+    width: 90%;
+    padding: 1rem;
+    border: none;
+    border-bottom: 1.2px solid black;
+    margin: 20px auto;
+    font: #3f3f44;
+    font-size:1.3rem;
+    background: transparent;
+}
+
+button{
+    padding: 1.6rem 3.2rem;
+    font-size: 2rem;
+    border: none;
+    border-radius: 50px;
+    background-color: #3f3f44;
+    color: white;
+    font-weight: 500;
+    transition: 2s;
+}
+
+button:hover{
+    transform: scale(1.2);
+}
+
+.button{
+    padding: 1rem 2rem;
+    font-size: 2rem;
+    border: none;
+    border-radius: 50px;
+    background-color: #3f3f44;
+    color: white;
+    font-weight: 500;
+    transition: 2s;
+}
+
+.button:hover{
+    transform: scale(1.1);
+}
+
+h3 ,h4, p{
+    align-self: center;
+    text-align: center;
+}
+
+h3{
+    font-family: 'Roboto Slab', serif;
+    font-size: 4rem;
+}
+
+h4,p{
+    font-family: 'Roboto', sans-serif;
+}
