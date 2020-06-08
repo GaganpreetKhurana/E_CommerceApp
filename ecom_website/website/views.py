@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 
 from .models import Service,UserDetail,Provider,ServiceDetail,Order
 from .forms import CreateAccountForm,LoginForm,AddServiceDetail,PlaceOrder,CreateUser
@@ -166,3 +167,8 @@ def addUserDetailsFormView(request):
                 provider=Provider(available=True,provider=obj)
             form=form_class(None)
         return render(request, template_name, {'form': form})
+
+
+def Home(request):
+    return render(request, 'website/home.html', {'title': 'Home'})
+
