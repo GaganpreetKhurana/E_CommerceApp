@@ -20,6 +20,10 @@
     <div style="text-align: center;">
         <button formaction="{% url 'website:login' %}" type="submit">Back to Login</button>
     </div>
+    <div style="text-align: center;">
+        <button><a href="{% url 'website:logout' %}">Logout</a>
+</button>
+    </div>
 </form>
 </div>
 {% endblock %}
