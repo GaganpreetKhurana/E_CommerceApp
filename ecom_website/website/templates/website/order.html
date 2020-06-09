@@ -12,7 +12,7 @@
 <br>
 <br>
 <h3>Place Order</h3>
-<form action="" method="post" class="form">
+<form action="" class="form" method="post">
     {% csrf_token %}
     {% for field in form %}
     <div class="inputBox">
@@ -20,8 +20,7 @@
         <label>{{ field.label }}</label>
     </div>
     {% endfor %}
-    <input type="submit" class="button">
+    <input class="button" type="submit">
 </form>
 <br>
-</div>
 {% endblock %}

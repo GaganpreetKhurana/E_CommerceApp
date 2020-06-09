@@ -3,18 +3,10 @@
 
 {% block body %}
 <center>
-        <h1>Welcome to our Ecommerce Website</h1>
-<div style="background-color:#e8eaf6">
+    <h1>Welcome to our Ecommerce Website</h1>
+    <div style="background-color:#e8eaf6">
         <p>Login to your account</p>
         <a href="{% url 'website:login' %}">Login</a>
-</div>
-<div style="background-color:#e8eaf6">
-        <p>Add Services to the website</p>
-        <a href="{% url 'website:addService' %}">Add a Service</a>
-</div>
-<div style="background-color:#e8eaf6">
-        <p>Place an Order</p>
-        <a href="{% url 'website:PlaceOrder' %}">Place Order</a>
-</div>
+    </div>
 </center>
 {% endblock %}
