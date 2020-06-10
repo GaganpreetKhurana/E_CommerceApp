@@ -5,7 +5,7 @@ from django.db import models
 # Create your models here.
 
 class UserDetail(models.Model):
-    account = models.OneToOneField(User, on_delete=models.DO_NOTHING, verbose_name="User")
+    account = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="User")
     name = models.CharField(max_length=50, verbose_name="Full Name")
     phoneNumber = models.IntegerField(unique=True, verbose_name="Phone Number")
     email = models.EmailField(unique=True, verbose_name="Email")
@@ -20,7 +20,9 @@ class UserDetail(models.Model):
 
 categories = [
     (0, "Food Delivery"),
-    (1, "Assignment Complete")
+    (1, "Assignment Complete"),
+    (2, "Tutor"),
+    (3, "Other Delivery")
 ]
 
 
@@ -34,14 +36,14 @@ class Service(models.Model):
 
 class Provider(models.Model):
     available = models.BooleanField(choices=[(True, 'Available'), (False, 'Busy')], verbose_name="Available")
-    provider = models.ForeignKey(UserDetail, on_delete=models.DO_NOTHING, verbose_name="Service Provider", default=None)
+    provider = models.ForeignKey(UserDetail, on_delete=models.CASCADE, verbose_name="Service Provider", default=None)
 
     def __str__(self):
         return str(self.available) + '___' + self.provider.name
 
 
 class ServiceDetail(models.Model):
-    provider = models.ForeignKey(Provider, on_delete=models.DO_NOTHING, verbose_name="Service Provider")
+    provider = models.ForeignKey(Provider, on_delete=models.CASCADE, verbose_name="Service Provider")
     price = models.IntegerField(verbose_name="Price")
     service = models.ForeignKey(Service, verbose_name="Service", on_delete=models.DO_NOTHING)
 
@@ -50,11 +52,11 @@ class ServiceDetail(models.Model):
 
 
 class Order(models.Model):
-    detail = models.ForeignKey(ServiceDetail, on_delete=models.DO_NOTHING, verbose_name="Service Provided")
+    detail = models.ForeignKey(ServiceDetail, on_delete=models.CASCADE, verbose_name="Service Provided")
     time = models.DateTimeField(auto_now=True, verbose_name="Order Placed At")
     active = models.BooleanField(choices=[(True, 'Yes'), (False, 'No')], default=True,
                                  verbose_name="Service Not Completed")
-    customer = models.ForeignKey(UserDetail, on_delete=models.DO_NOTHING, verbose_name="Customer")
+    customer = models.ForeignKey(UserDetail, on_delete=models.CASCADE, verbose_name="Customer")
 
     def __str__(self):
         return str(self.detail) + '___' + str(self.time) + '___' + str(

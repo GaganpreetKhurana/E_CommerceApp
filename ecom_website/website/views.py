@@ -35,9 +35,9 @@ class CreateAccountFormView(View):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 login(request, user)
-                print("login")
+                print("login,Created")
                 return redirect('website:addUserDetails')
-
+        print("Account Not Created")
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
@@ -69,12 +69,15 @@ class LoginFormView(View):
                             provider = get_object_or_404(Provider, provider=provider)
                             provider.available = True
                             provider.save()
-                            print("login")
-                            return redirect('website:addUserDetails')
+                            print("login,Details exist")
+                            return redirect('website:addService')
+                        else:
+                            print("login,Details exist")
+                            return redirect('website:PlaceOrder')
                     else:
-                        return redirect('website:login')
-                    print("login")
-                    return redirect('website:PlaceOrder')
+                        print("login,Details do not exist")
+                        return redirect('website:addUserDetails')
+        print("Not login")
         return redirect('website:login')
 
 
@@ -92,6 +95,11 @@ def logout_view(request):
             provider = get_object_or_404(Provider, provider=provider)
             provider.available = False
             provider.save()
+            print('provider exit')
+        else:
+            print('Customer exit')
+    else:
+        print("No user Details")
     logout(request)
     print("logout")
     return redirect('website:login')
@@ -108,9 +116,6 @@ class AddServiceFormView(View):
     def get(self, request):
         provider = get_object_or_404(UserDetail, account=request.user)
         if provider.customer:
-            provider = get_object_or_404(Provider, provider=provider)
-            provider.available = True
-            provider.save()
             print("Not a provider")
             return redirect('website:PlaceOrder')
         form = self.form_class(None)
@@ -120,9 +125,6 @@ class AddServiceFormView(View):
     def post(self, request):
         provider = get_object_or_404(UserDetail, account=request.user)
         if provider.customer:
-            provider = get_object_or_404(Provider, provider=provider)
-            provider.available = True
-            provider.save()
             print("Not a provider")
             return redirect('website:PlaceOrder')
         form = self.form_class(request.POST)
@@ -132,7 +134,10 @@ class AddServiceFormView(View):
             provider = get_object_or_404(Provider, provider=provider)
             obj.provider = provider
             obj.save()
-            form = self.form_class(None)
+            print("Service ADDED")
+        else:
+            print("Service Not ADDED")
+        form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
 
@@ -144,9 +149,6 @@ class PlaceOrder(View):
     def get(self, request):
         provider = get_object_or_404(UserDetail, account=request.user)
         if not provider.customer:
-            provider = get_object_or_404(Provider, provider=provider)
-            provider.available = True
-            provider.save()
             print("Not a customer")
             return redirect('website:addService')
         form = self.form_class(None)
@@ -158,9 +160,6 @@ class PlaceOrder(View):
     def post(self, request):
         provider = get_object_or_404(UserDetail, account=request.user)
         if not provider.customer:
-            provider = get_object_or_404(Provider, provider=provider)
-            provider.available = True
-            provider.save()
             print("Not a customer")
             return redirect('website:addService')
         form = self.form_class(request.POST)
@@ -179,9 +178,11 @@ class PlaceOrder(View):
             msgProvider = "An order (Order Number: {} ) for {} has been placed.\nDescription: {}.\nAmount to be paid by customer: Rs {}\nContact the customer\nCustomer Details:\nName: {}\nContact: {}\n\nThanks E-COM".format(
                 obj.id, categories[obj.detail.service.category][1], obj.detail.service.description, obj.detail.price,
                 customer.name, customer.phoneNumber)
-
+            print("Message Sent,Order Placed")
             sendMessage(contactNumber=provider.provider.provider.phoneNumber, msg=msgCustomer)
-            sendMessage(contactNumber=customer.contactNumber, msg=msgProvider)
+            sendMessage(contactNumber=customer.phoneNumber, msg=msgProvider)
+        else:
+            print("Order Not placed")
         form = self.form_class(None)
         items = ServiceDetail.objects.all()
         args = {'items': items, 'form': form}
@@ -224,6 +225,9 @@ def addUserDetailsFormView(request):
             if not customer:
                 provider = Provider(available=True, provider=obj)
             form = form_class(None)
+            print("details added,Welcome")
+        else:
+            print("Details not added")
         return render(request, template_name, {'form': form})
 
 
