@@ -8,8 +8,9 @@ The backend is built using Django and uses SQLite as database and frontend is bu
 <br>
 First you need to Create your account and then Login and add Order.
 
-
-###Run instructions:
+<br>
+<br>
+Run instructions:
 
     1.Clone the repository;
     2.Install all the requirements from requirements.txt by running a command in terminal/cmd:
@@ -17,7 +18,7 @@ First you need to Create your account and then Login and add Order.
     4.Change directory to website: cd ecom_website
     5.Run Project Server: python manage.py runserver
 
-###Provider:
+Provider:
 
     1.Go to the home page http://127.0.0.1/
     2.Click on Login
@@ -29,7 +30,7 @@ First you need to Create your account and then Login and add Order.
     **Make sure you logout while quiting the application**
     
     
-###Order:
+Order:
 
     1.Go to the home page http://127.0.0.1/
     2.Click on Login
@@ -40,7 +41,7 @@ First you need to Create your account and then Login and add Order.
     
     **Make sure you logout while quiting the application**
     
-###Future Scope:
+Future Scope:
 
     1.Allowing the services to upload an image for their services
     2.Allowing the service providers to create their product page
