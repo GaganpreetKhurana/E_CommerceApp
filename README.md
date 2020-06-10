@@ -19,4 +19,23 @@ Provider:
     **Make sure you logout while quiting the application**
     
     
-     
+Order:
+
+    1.Go to the home page http://127.0.0.1/
+    2.Click on Login
+    3.If you have an account login else create a new account
+    4.The order page has two sections - the top half displays the services available at the moment along with their respective prices
+                                      - the bottom half allows the user to select a service and place an order
+    5. Place an order of required service
+    
+    **Make sure you logout while quiting the application**
+    
+Future Scope:
+
+    1.Allowing the services to upload an image for their services
+    2.Allowing the service providers to create their product page
+    3.Allowing the user to cancel an order once places
+    4.Allowing the user to view their order history
+    5.UI improvements
+
+    
