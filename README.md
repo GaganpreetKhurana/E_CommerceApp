@@ -20,7 +20,7 @@ Run instructions:
 
 Provider:
 
-    1.Go to the home page http://127.0.0.1/
+    1.Go to the home page http://127.0.0.1:8000/
     2.Click on Login
     3.If you have an account login else create a new account
     4.To add a service Select the price and type of service and click submit
@@ -32,7 +32,7 @@ Provider:
     
 Order:
 
-    1.Go to the home page http://127.0.0.1/
+    1.Go to the home page http://127.0.0.1:8000/
     2.Click on Login
     3.If you have an account login else create a new account
     4.The order page has two sections - the top half displays the services available at the moment along with their respective prices
