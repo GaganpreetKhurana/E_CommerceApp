@@ -1,13 +1,23 @@
-# DjangoWebApp
+<a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangomade124x25.gif" border="0" alt="Made with Django." title="Made with Django." /></a>
+<h1 align="center">DjangoWebApp
+</h1>
+&nbsp
+This is a website made for the exchange of services.
+The backend is built using Django and uses SQLite as database and frontend is built using HTML and CSS.
+<br>
+<br>
+First you need to Create your account and then Login and add Order.
 
-Run instructions:
+
+####Run instructions:
 
     1.Clone the repository;
     2.Install all the requirements from requirements.txt by running a command in terminal/cmd:
     3.pip install -r requirements.txt
     4.Change directory to website: cd ecom_website
     5.Run Project Server: python manage.py runserver
-Provider:
+
+####Provider:
 
     1.Go to the home page http://127.0.0.1/
     2.Click on Login
@@ -19,7 +29,7 @@ Provider:
     **Make sure you logout while quiting the application**
     
     
-Order:
+####Order:
 
     1.Go to the home page http://127.0.0.1/
     2.Click on Login
@@ -30,7 +40,7 @@ Order:
     
     **Make sure you logout while quiting the application**
     
-Future Scope:
+####Future Scope:
 
     1.Allowing the services to upload an image for their services
     2.Allowing the service providers to create their product page
