@@ -1,1 +1,4 @@
-__pycache__
+.idea
+ecom_website/__pycache__
+website/__pycache__
+website/migrations/__pycache__
