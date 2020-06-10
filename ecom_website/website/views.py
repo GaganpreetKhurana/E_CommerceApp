@@ -63,14 +63,16 @@ class LoginFormView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    profile = request.user
-                    provider = get_object_or_404(UserDetail, account=request.user)
-                    if not provider.customer:
-                        provider = get_object_or_404(Provider, provider=provider)
-                        provider.available = True
-                        provider.save()
-                        print("login")
-                        return redirect('website:addUserDetails')
+                    if UserDetail.objects.filter(account=request.user).exists():
+                        provider = get_object_or_404(UserDetail, account=request.user)
+                        if not provider.customer:
+                            provider = get_object_or_404(Provider, provider=provider)
+                            provider.available = True
+                            provider.save()
+                            print("login")
+                            return redirect('website:addUserDetails')
+                    else:
+                        return redirect('website:login')
                     print("login")
                     return redirect('website:PlaceOrder')
         return redirect('website:login')
@@ -84,11 +86,12 @@ def logout_view(request):
     :return: redirects to login
     """
     profile = request.user
-    provider = get_object_or_404(UserDetail, account=request.user)
-    if not provider.customer:
-        provider = get_object_or_404(Provider, provider=provider)
-        provider.available = False
-        provider.save()
+    if UserDetail.objects.filter(account=request.user).exists():
+        provider = get_object_or_404(UserDetail, account=request.user)
+        if not provider.customer:
+            provider = get_object_or_404(Provider, provider=provider)
+            provider.available = False
+            provider.save()
     logout(request)
     print("logout")
     return redirect('website:login')
