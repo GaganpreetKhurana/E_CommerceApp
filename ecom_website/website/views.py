@@ -35,16 +35,9 @@ class CreateAccountFormView(View):
             user = authenticate(username=username, password=password)
             if user is not None and user.is_active:
                 login(request, user)
-                profile = request.user
-                provider = get_object_or_404(UserDetail, account=request.user)
-                if not provider.customer:
-                    provider = get_object_or_404(Provider, provider=provider)
-                    provider.available = True
-                    provider.save()
-                    print("login")
-                    return redirect('website:addUserDetails')
                 print("login")
-                return redirect('website:PlaceOrder')
+                return redirect('website:addUserDetails')
+
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
