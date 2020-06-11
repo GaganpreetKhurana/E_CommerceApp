@@ -15,8 +15,9 @@ Run instructions:
     1.Clone the repository;
     2.Install all the requirements from requirements.txt by running a command in terminal/cmd:
     3.pip install -r requirements.txt
-    4.Change directory to website: cd ecom_website
-    5.Run Project Server: python manage.py runserver
+    4.Enter api authorization key in ecom_website/website/confirmationMessage.py in auth_key
+    5.Change directory to website: cd ecom_website
+    6.Run Project Server: python manage.py runserver
 
 Provider:
 
