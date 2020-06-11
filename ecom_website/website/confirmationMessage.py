@@ -13,8 +13,9 @@ def sendMessage(contactNumber=None, msg=None):
         return
 
     url = "https://www.fast2sms.com/dev/bulk"
-
-    querystring = {"authorization": "5opOL4g8RtrVU6lHMS0nWqdQfBa7jhbAJKNCZ31czFewPXvTyxHDBQVsmeRYSlT4wW8Ov9br3UpCkgIN"
+    
+    auth_key="" #Enter auth key here
+    querystring = {"authorization": auth_key
         , "sender_id": "FSTSMS", "message": msg, "language": "english",
                    "route": "p", "numbers": str(contactNumber)}
 
